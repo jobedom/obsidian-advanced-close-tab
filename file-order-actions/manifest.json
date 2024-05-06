@@ -1,0 +1,9 @@
+{
+	"id": "file-order-actions",
+	"name": "File order actions",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Adds actions to reorder files.",
+	"author": "Joaquín Bernal",
+	"isDesktopOnly": false
+}

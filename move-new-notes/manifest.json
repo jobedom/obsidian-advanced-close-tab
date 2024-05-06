@@ -1,0 +1,9 @@
+{
+	"id": "move-new-notes",
+	"name": "Move new notes",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Move new notes to appropriate folder up in the hierarchy.",
+	"author": "Joaquín Bernal",
+	"isDesktopOnly": false
+}

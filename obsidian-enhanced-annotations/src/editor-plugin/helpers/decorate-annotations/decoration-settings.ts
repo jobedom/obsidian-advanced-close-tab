@@ -1,0 +1,113 @@
+import { Decoration } from '@codemirror/view';
+import { Settings } from '../../../settings/settings-type';
+import { generateLabelStyleString } from './helpers/generate-label-style-string';
+import LabeledAnnotations from '../../../main';
+import { triggerEditorUpdate } from '../../../sidebar-outline/helpers/outline-updater/helpers/trigger-editor-update';
+
+export class DecorationSettings {
+    constructor(private plugin: LabeledAnnotations) {}
+
+    private _enabled = true;
+
+    get enabled(): boolean {
+        return this._enabled;
+    }
+
+    set enabled(value: boolean) {
+        this._enabled = value;
+        this.decorate();
+    }
+
+    private _decorations: Record<
+        string,
+        {
+            comment: Decoration;
+            tag: Decoration;
+            highlight: Decoration;
+            annotation: Decoration;
+        }
+    >;
+
+    get decorations() {
+        return this._decorations;
+    }
+
+    private _decorateTags: boolean;
+
+    get decorateTags() {
+        return this._decorateTags;
+    }
+
+    setSettings(styles: Settings['decoration']['styles']) {
+        this._decorations = Object.values(styles.labels).reduce(
+            (acc, val) => {
+                if (val.enableStyle) {
+                    acc[val.label] = {
+                        comment: Decoration.mark({
+                            attributes: {
+                                style: generateLabelStyleString(
+                                    val.style,
+                                    false,
+                                    false,
+                                ),
+                            },
+                        }),
+                        highlight: Decoration.mark({
+                            attributes: {
+                                style: generateLabelStyleString(
+                                    val.style,
+                                    true,
+                                    false,
+                                ),
+                            },
+                        }),
+                        tag: Decoration.mark({
+                            attributes: {
+                                style: generateLabelStyleString(
+                                    {
+                                        ...val.style,
+                                        ...styles.tag.style,
+                                    },
+                                    false,
+                                    false,
+                                ),
+                            },
+                        }),
+                        annotation: Decoration.mark({
+                            attributes: {
+                                style: generateLabelStyleString(
+                                    {
+                                        ...val.style,
+                                        ...styles.tag.style,
+                                    },
+                                    false,
+                                    true,
+                                ),
+                            },
+                        }),
+                    };
+                }
+                return acc;
+            },
+            {} as Record<
+                string,
+                {
+                    comment: Decoration;
+                    tag: Decoration;
+                    highlight: Decoration;
+                    annotation: Decoration;
+                }
+            >,
+        );
+        this._decorateTags = styles.tag.enableStyle;
+
+        this.decorate();
+    }
+
+    private decorate() {
+        const editor = this.plugin.outline.getValue().view?.editor;
+        if (editor) {
+            triggerEditorUpdate(editor);
+        }
+    }
+}

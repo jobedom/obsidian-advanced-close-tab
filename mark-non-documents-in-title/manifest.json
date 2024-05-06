@@ -1,0 +1,9 @@
+{
+	"id": "mark-non-documents-in-title",
+	"name": "Mark non documents in title",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Mark non documents in title.",
+	"author": "Joaquín Bernal",
+	"isDesktopOnly": false
+}

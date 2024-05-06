@@ -1,0 +1,43 @@
+{
+  "name": "obsidian-typewriter-mode",
+  "version": "0.0.7",
+  "description": "Typewriter scrolling, highlight of the current line, dimming of unfocused paragraphs and more",
+  "main": "main.js",
+  "scripts": {
+    "lint": "bunx @biomejs/biome lint src build.ts version-bump.ts",
+    "format": "bunx @biomejs/biome format src build.ts version-bump.ts --write",
+    "type-check": "bun tsc --noEmit",
+    "check": "bunx @biomejs/biome check --apply src build.ts version-bump.ts && bun run type-check",
+    "build": "bun ./build.ts",
+    "clean": "rm -rf ./dist",
+    "test-vault": "./make-test-vault.sh",
+    "clean-test-vault": "rm -rf ./test-vault/.obsidian/plugins/obsidian-typewriter-mode",
+    "version-bump": "bun ./version-bump.ts"
+  },
+  "keywords": [
+    "obsidian",
+    "typewriter"
+  ],
+  "author": "Davis Riedel",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davisriedel/obsidian-typewriter-mode"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@biomejs/biome": "1.5.1",
+    "@codemirror/state": "^6.2.1",
+    "@codemirror/view": "^6.16.0",
+    "@types/codemirror": "^5.60.9",
+    "@types/node": "^20.5.4",
+    "esbuild": "^0.19.11",
+    "esbuild-node-externals": "^1.12.0",
+    "esbuild-sass-plugin": "^2.16.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "obsidian": "^1.4.4",
+    "prettier": "^3.0.2",
+    "tslib": "^2.6.2",
+    "typescript": "latest"
+  }
+}
